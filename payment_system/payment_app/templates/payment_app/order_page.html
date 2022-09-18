@@ -1,11 +1,19 @@
 {% extends 'payment_app/base_payment_app.html' %}
 
-{% block title %}Buy Item {{ item.pk }}{% endblock %}
+{% block title %}Order: {{ order.name }}{% endblock %}
 
 {% block content %}
-<h1>{{ item.name }}</h1>
-<p>{{ item.description }}</p>
-<p>{{ item.price }} $</p>
+<h1>{{ order.name }}</h1>
+<ul>
+    {% for item in items %}
+    <li>
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+        <p>{{ item.price }} $</p>
+    </li>
+    {% endfor %}
+</ul>
+<p>Sum: {{ unit_amount }} $</p>
 <button id="checkout-button">Buy</button>
 
 <script src="https://js.stripe.com/v3/"></script>
@@ -14,7 +22,7 @@
     var checkoutButton = document.getElementById('checkout-button');
 
     checkoutButton.addEventListener('click', function () {
-        fetch("{% url 'buy_item' pk=item.id %}", {method: 'GET',})
+        fetch("{% url 'buy_order' order_pk=order.id %}", {method: 'GET',})
             .then(function (response) {
                 return response.json();
             })
