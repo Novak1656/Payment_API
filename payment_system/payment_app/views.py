@@ -84,6 +84,6 @@ class BuyOrderAPIView(APIView):
             mode='payment',
             discounts=discounts,
             success_url=f'{domain}/success',
-            cancel_url=f"{domain}{reverse('buy_order', kwargs={'order_pk': kwargs.get('order_pk')})}",
+            cancel_url=f"{domain}{reverse('get_order', kwargs={'order_pk': kwargs.get('order_pk')})}",
         )
         return JsonResponse({'session_id': session.id})
