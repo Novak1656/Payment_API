@@ -37,7 +37,8 @@ class Order(models.Model):
         verbose_name='Скидка в %',
         to='Discount', on_delete=models.PROTECT,
         related_name='order',
-        null=True
+        null=True,
+        blank=True
     )
     created_at = models.DateTimeField(
         verbose_name='Создан',
