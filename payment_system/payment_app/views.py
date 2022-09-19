@@ -36,7 +36,7 @@ class BuyItemAPIView(APIView):
             }],
             mode='payment',
             success_url=f'{domain}/success',
-            cancel_url=request.META["HTTP_REFERER"],
+            cancel_url=f"{domain}{reverse('get_item', kwargs={'pk': kwargs.get('pk')})}",
         )
         return JsonResponse({'session_id': session.id})
 
@@ -84,6 +84,6 @@ class BuyOrderAPIView(APIView):
             mode='payment',
             discounts=discounts,
             success_url=f'{domain}/success',
-            cancel_url=request.META["HTTP_REFERER"],
+            cancel_url=f"{domain}{reverse('buy_order', kwargs={'order_pk': kwargs.get('order_pk')})}",
         )
         return JsonResponse({'session_id': session.id})
